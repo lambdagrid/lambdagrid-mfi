@@ -3,6 +3,7 @@
 LambdaGrid exists because we think shipping a polished UI requires too much tedium. LambdaGrid abstracts away the tedium so that developers can configure their UI with small amounts of JavaScript.
 
 All code in classic UI development, where you build the UI from scratch, falls under one of two categories:
+
 1. Business and application logic
 2. Infrastructure and maintenance
 
