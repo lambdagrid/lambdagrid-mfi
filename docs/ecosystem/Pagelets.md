@@ -31,15 +31,15 @@ Here's an example configuration:
 
 ```javascript
 const pageletConfigs = {
-  authenticator: function validateTheUserIsAuthenticated() {},
+  isAuthorized: function validateTheUserIsAuthenticated() {},
   view: 'SampleReactView',
   transform: function transformAppStateIntoConsumableDataForReactView() {},
 };
 ```
 
-### `pageletConfigs.authenticator`
+### `pageletConfigs.isAuthorized`
 
-The `authenticator` config specifies an authentication function to use to verify that the user is allowed to look at the page. We recommend this function come from App State to keep business logic contained within App State and remain agnostic to the implementation details, but you could write your own function within your pagelet if you're not afraid of the coupling.
+The `isAuthorized` config specifies an authentication function to use to verify that the user is allowed to look at the page. We recommend this function come from App State to keep business logic contained within App State and remain agnostic to the implementation details, but you could write your own function within your pagelet if you're not afraid of the coupling.
 
 This function takes the new application state as an input, and returns `true` if the user is authorized and `false` otherwise. It's the downstream consuming service's responsibility to handle the result, whether `true` or `false`.
 
