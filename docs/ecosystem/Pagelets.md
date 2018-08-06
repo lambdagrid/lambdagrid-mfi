@@ -31,7 +31,7 @@ Here's an example configuration:
 
 ```javascript
 const pageletConfigs = {
-  authorized: function validateTheUserIsAuthenticated() {},
+  authenticator: function validateTheUserIsAuthenticated() {},
   view: 'SampleReactView',
   transform: function transformAppStateIntoConsumableDataForReactView() {},
 };
