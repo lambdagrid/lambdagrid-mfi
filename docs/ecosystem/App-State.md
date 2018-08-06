@@ -53,3 +53,5 @@ In other packages, you will want to invoke an updater to trigger state changes. 
 const addDog = AppState.getUpdater('add a dog');
 addDog({ name: 'Fluffy', size: 'medium' });
 ```
+
+Our aim is to allow other packages to invoke updates to App State while not needing to know the implementation details in App State.
