@@ -8,5 +8,6 @@
   * [MFI](ecosystem/MFI.md)
   * [App State](ecosystem/App-State.md)
   * [React Views](ecosystem/React-Views.md)
+  * [Pagelets](ecosystem/Pagelets.md)
 * [Recipes](recipes/README.md)
 * [Examples](examples/README.md)
