@@ -2,10 +2,10 @@
 
 App State is the database of your application. It handles reading data from and writing data to your application state.
 
-Assuming your MFI config names your App State `AppState`, you can start configuring your application state in your app state's `index.js` file with:
+You can start configuring your application state in your app state's `index.js` file with:
 
 ```javascript
-import { AppState } from 'lambdagrid';
+import { AppState } from 'lambdagrid-mfi';
 ```
 
 App State converts your app state into an [Immutable.js object](https://facebook.github.io/immutable-js/docs/) to expose more powerful APIs to manipulate state while also reaping the benefits of immutability.
@@ -34,13 +34,28 @@ Updaters are stateless functions which update the app state when new information
 
 ```javascript
 // inside App State's index.js
+
+import 'Immutable' from 'immutable';
+
+function addDogUpdater(prevState, newDogToAdd) {
+  const newDog = Immutable.fromJS(newDogToAdd);
+  const nextState = prevState.update('dogs', dogs => dogs.push(newDog));
+  return nextState;
+}
+
+function removeDogUpdater(prevState, name) {
+  const notPickedByUser = dog => dog.get('name') != name;
+  const nextState = prevState.update('dogs', dogs => dogs.filter(notPickedByUser));
+  return nextState;
+}
+
 AppState.registerUpdaters({
-  'add a dog': (state, newDog) => state.update('dogs', dogs => dogs.push(newDog)),
-  'remove a dog': (state, name) => state.filter('dogs', dogs => dogs.filter(d => d.name != name))
+  'add a dog': addDogUpdater,
+  'remove a dog': removeDogUpdater,
 });
 ```
 
-Note that the updaters as functions take two arguments: the previous state and new data sent to the updater. Updaters return the new state.
+Note that the updaters as functions take at least one argument, the previous state. You can add extra arguments that will be passed by the updater invoker, if you want to pass custom data to the updater. In this case, the updater's invoker for `add a dog` will pass configs for a new dog.
 
 Updaters are similar to reducers in Redux, but they're called Updaters because they also include the Redux action component in addition to the reducer component.
 
@@ -53,5 +68,7 @@ In other packages, you will want to invoke an updater to trigger state changes. 
 const addDog = AppState.getUpdater('add a dog');
 addDog({ name: 'Fluffy', size: 'medium' });
 ```
+
+In this example, `{ name: 'Fluffy', size: 'medium' }` is the config that gets sent to the `add a dog` updater as the second argument. If the `addDog` invocation included a second argument, that argument would appear as the third argument in `add a dog`.
 
 Our aim is to allow other packages to invoke updates to App State while not needing to know the implementation details in App State.

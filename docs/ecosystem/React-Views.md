@@ -9,7 +9,7 @@ You can make React Views from available Bootstrap-compatible React components, p
 You can import all the Bootstrap components like this:
 
 ```javascript
-import components from 'lambdagrid/react-bootstrap-components';
+import components from 'lambdagrid-mfi/react-bootstrap-components';
 ```
 
 ### Layout
@@ -35,7 +35,7 @@ function exampleLayoutComponent(props) {
 
 #### Text input
 
-Ordinary text input:
+Ordinary text input ([example](#)):
 
 ```javascript
 <FieldGroup
@@ -46,7 +46,7 @@ Ordinary text input:
 />
 ```
 
-Email text input:
+Email text input ([example](#)):
 
 ```javascript
 <FieldGroup
@@ -57,7 +57,7 @@ Email text input:
 />
 ```
 
-Password text input:
+Password text input ([example](#)):
 
 ```javascript
 <FieldGroup
@@ -68,6 +68,8 @@ Password text input:
 ```
 
 #### File upload
+
+([Example](#)).
 
 ```javascript
 <FieldGroup
@@ -80,7 +82,7 @@ Password text input:
 
 #### Checkbox
 
-One checkbox:
+One checkbox ([example](#)):
 
 ```javascript
 <Checkbox checked readOnly>
@@ -88,7 +90,7 @@ One checkbox:
 </Checkbox>
 ```
 
-Several checkboxes:
+Several checkboxes ([example](#)):
 
 ```javascript
 <FormGroup>
@@ -100,7 +102,7 @@ Several checkboxes:
 
 #### Radio
 
-One radio:
+One radio ([example](#)):
 
 ```javascript
 <Radio checked readOnly>
@@ -108,7 +110,7 @@ One radio:
 </Radio>
 ```
 
-Several checkboxes:
+Several checkboxes ([example](#)):
 
 ```javascript
 <FormGroup>
@@ -120,7 +122,7 @@ Several checkboxes:
 
 #### Select
 
-Single select:
+Single select ([example](#)):
 
 ```javascript
 <FormGroup controlId="formControlsSelect">
@@ -132,7 +134,7 @@ Single select:
 </FormGroup>
 ```
 
-Multiple select:
+Multiple select ([example](#)):
 
 ```javascript
 <FormGroup controlId="formControlsSelectMultiple">
@@ -145,6 +147,8 @@ Multiple select:
 ```
 
 #### Textarea
+
+([Example](#)).
 
 ```javascript
 <FormGroup controlId="formControlsTextarea">

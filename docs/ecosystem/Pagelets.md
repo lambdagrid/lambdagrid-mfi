@@ -5,10 +5,10 @@ Pagelets are the hub of all application logic: turning business data into a form
 Pagelets create a layer of abstraction between App State and React Views so that the two can be further decoupled.
 
 ```javascript
-import { Pagelets } from 'lambdagrid';
+import { Pagelets } from 'lambdagrid-mfi';
 ```
 
-While a pagelet consumes both App State and React Views, Pagelets itself is consumed by the URL routing service. When the URL routing service requests a pagelet, the pagelet does the following:
+While a pagelet consumes both App State and React Views, the Pagelets package itself is consumed by the URL routing service. When the URL routing service requests a pagelet, the pagelet does the following:
 
 1. Validates the request. If the user is not authenticated, invalidate the request
 2. Request the data needed from App State to populate the React Views
@@ -30,9 +30,10 @@ The `PageletName` is for other packages which consume Pagelets, mainly the URL r
 Here's an example configuration:
 
 ```javascript
+import { pointTo } from 'lambdagrid-mfi/utils'
 const pageletConfigs = {
-  isAuthorized: function validateTheUserIsAuthenticated() {},
-  view: 'SampleReactView',
+  isAuthorized: pointTo('AppState', 'getAuthorizer', 'anyUser'),
+  view: pointTo('ReactViews', 'getReactView', 'TodoApp'),
   transform: function transformAppStateIntoConsumableDataForReactView() {},
 };
 ```
@@ -51,9 +52,11 @@ The `view` config specifies the name of the registered React View to render, if 
 
 The `transform` function specifies a function which takes the new application state, and it returns a `props` object which the specified React View consumes.
 
-The `props` includes two different types of props:
+The `props` includes two different types of props, as in any React app:
 
 1. Data, like numbers, strings, objects, and arrays
 2. Event handlers, to respond to user events like a click, a keypress, or a form submit
+
+You could also add a lesser known, but still common type of prop: other extra functions that the React Views would consume. For instance, if a React view need to render a list of items, you could add a prop that iterates over this list, so that the React view itself can not involve itself with the implementation details of the data and stay focused on the implementation details of the view itself.
 
 It'll be the React View's responsibility to map all the props to the appropriate React elements to render the data correctly and map event handlers correctly.

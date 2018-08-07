@@ -8,7 +8,7 @@ For instance, expressing how application state should update after a user adds a
 
 ```javascript
 function addItem(prevState, newItem) {
-  const nextState = prevState.updateIn(['items'], items => items.push(newItem));
+  const nextState = prevState.update('items', items => items.push(newItem));
   return nextState;
 }
 ```
@@ -42,32 +42,7 @@ If you're missing a package for an important feature, or if you'd like a new way
 Each package has its own API, which reflects how each package has its own purpose. Usually, the APIs are for adding stateless JavaScript functions to the package. For instance, the app state package exposes an API for adding functions that update the app's global state:
 
 ```javascript
-import { AppState } from 'lambdagrid/packages';
-
-AppState.registerSchemas(
-  dogs: {
-    type: 'array',
-    items: {
-      properties: {
-        name: { type: 'string' },
-        size: { type: 'string', enum: ['small', 'medium', 'large'] }
-      }
-    }
-  }
-);
-
-AppState.registerInitialStates(
-  dogs: [
-    {
-      name: 'Bowser',
-      size: 'small'
-    },
-    {
-      name: 'Dexter',
-      size: 'large'
-    }
-  ]
-);
+import { AppState } from 'lambdagrid-mfi';
 
 AppState.registerUpdaters(
   'add a dog': (state, newDog) => state.update('dogs', dogs => dogs.push(newDog)),
