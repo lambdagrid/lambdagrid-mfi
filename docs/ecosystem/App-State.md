@@ -72,3 +72,29 @@ addDog({ name: 'Fluffy', size: 'medium' });
 In this example, `{ name: 'Fluffy', size: 'medium' }` is the config that gets sent to the `add a dog` updater as the second argument. If the `addDog` invocation included a second argument, that argument would appear as the third argument in `add a dog`.
 
 Our aim is to allow other packages to invoke updates to App State while not needing to know the implementation details in App State.
+
+## Authorizers
+
+Authorizers are stateless functions which return a boolean, also called "predicates." Authorizers take app state as an argument, and then return `true` or `false` depending on whether or not the app state is sufficient to authorize access to whatever package invokes the authorizer.
+
+For instance, let's say we have the following authorizers:
+
+```javascript
+function anyUser(state) {
+  return true;
+}
+
+function atLeastReadAccess(state) {
+  return state.getIn(['auth', 'access levels', 'read']);
+}
+
+function atLeastWriteAccess(state) {
+  return state.getIn(['auth', 'access levels', 'write']);
+}
+
+function atLeastAdmin(state) {
+  return state.getIn(['auth', 'access levels', 'admin']);
+}
+```
+
+Pagelets can select one of these authorizers to pick an access level for users requesting the pagelets. The login screen, for instance, would probably use `anyUser`. `atLeastReadAccess` could be great for viewing a list of records. `atLeastWriteAccess` could be great for modifying the list of records. `atLeastAdmin` could be used for credit cards.
