@@ -156,7 +156,7 @@ ping('AppState', 'set authorizers', {
 });
 ```
 
-The `authorizerNameN` is the identifing `name` in `ping('AppState', 'get authorizer', name)`.
+The `authorizerNameN` is the identifying `name` in `ping('AppState', 'get authorizer', name)`.
 
 The `authorizerFunctionN` is a function that takes `currentState` as its only argument. The updater function must return a boolean.
 
