@@ -10,5 +10,8 @@
   * [React Views](ecosystem/React-Views.md)
   * [Pagelets](ecosystem/Pagelets.md)
 * [API Reference](api-reference/README.md)
+  * [MFI](api-reference/MFI.md)
   * [App State](api-reference/App-State.md)
+  * [React Views](api-reference/React-Views.md)
+  * [React Components](api-reference/React-Components.md)
 * [Examples](examples/README.md)
