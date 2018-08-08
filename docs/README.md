@@ -9,5 +9,6 @@
   * [App State](ecosystem/App-State.md)
   * [React Views](ecosystem/React-Views.md)
   * [Pagelets](ecosystem/Pagelets.md)
-* [Recipes](recipes/README.md)
+* [API Reference](api-reference/README.md)
+  * [App State](api-reference/App-State.md)
 * [Examples](examples/README.md)
