@@ -15,4 +15,5 @@
   * [React Views](api-reference/React-Views.md)
   * [React Components](api-reference/React-Components.md)
   * [URL Routing](api-reference/URL-Routing.md)
+  * [Text Manager](api-reference/Text-Manager.md)
 * [Examples](examples/README.md)
