@@ -14,4 +14,5 @@
   * [App State](api-reference/App-State.md)
   * [React Views](api-reference/React-Views.md)
   * [React Components](api-reference/React-Components.md)
+  * [URL Routing](api-reference/URL-Routing.md)
 * [Examples](examples/README.md)
