@@ -21,6 +21,13 @@ ping('AppState', 'read', nameOfReadRequest, arg1, arg2, argN...);
 
 Where `nameOfReadRequest` is a required string which is a query name that is configured in AppState, and `argN` is an optional additional parameter.
 
+Example:
+
+```javascript
+const id = 123;
+ping('AppState', 'read', 'getDogDetail', id);
+```
+
 ### Creating Readers
 
 You create Readers in AppState like this:
@@ -63,6 +70,56 @@ function getDogDetail(state, id) {
 ping('AppState', 'set readers', {
   getDogList,
   getDogDetail,
+});
+```
+
+## Writing state to AppState with Writers
+
+Along with Readers, you can write state to both your application state and to API servers with Writers.
+
+### Consuming Writers
+
+Pagelets are the main consumers of Writers. You can consume a Writer like this:
+
+```javascript
+ping('AppState', 'write', nameOfWriteRequest, arg1, arg2, argN...);
+```
+
+Where `nameOfWriteRequest` is a required string which is a query name that is configured in AppState, and `argN` is an optional additional parameter.
+
+Email:
+
+```javascript
+const id = 123;
+ping('AppState', 'write', 'update dog name', id, 'Captain Woofers');
+```
+
+### Creating Writers
+
+You can create Writers like this:
+
+```javascript
+ping('AppState', 'set writers', {
+  name1: writerFunction1,
+  name2: writerFunction2,
+  nameN: writerFunctionN,
+});
+```
+
+Where `nameN` is the `name` of a query that consumers specify with `ping('AppState', 'write', name)`, and `writerFunctionN` is a function that takes the current app state as the first argument and returns either the updated app state, or a promise which eventually resolves to the updated app state. Additional arguments in the definition of `writerFunctionN` are optional but can be useful to make state queries more dynamic.
+
+Example:
+
+```javascript
+function updateDogName(state, id, name) {
+  const dogs = state.get('dogs');
+  const dogWithId = d => d.get('id') === id;
+  return ping('API', 'get server', 'dogs server', 'update dog', id, { name })
+    .then(newDog => state.updateIn(['dogs', dogs.findIndex(dogWithId)], newDog));
+}
+
+ping('AppState', 'set writers', {
+  'update dog name': updateDogName,
 });
 ```
 
@@ -180,88 +237,3 @@ ping('AppState', 'set authorizers', {
   'is logged in': loginRequired,
 });
 ```
-
-## Synchronizers
-
-Synchronizers help to sync your UI's application state with the data in your database behind an API server. There are two types of Synchronizers:
-
-1. Readers, which take data from the API server and load it into App State
-2. Writers, which take user requests to change, update, or delete data, and propagate those changes back to the API server
-
-### Readers
-
-Readers are consumed by Pagelets, but configured in AppState.
-
-#### Consumption
-
-Pagelets ask for data from AppState like this:
-
-```javascript
-ping('AppState', 'read', pathToData);
-```
-
-Where `pathToData` is an array of strings and numbers that represents the path to traverse AppState to get your desired data. This returns an array with two items. The first is the data, if data exists at your specified path, otherwise it is `null`. The second is a boolean, either `true` if a Reader Synchronizer is fetching your data, or `false` if not.
-
-Example:
-
-```javascript
-const path = ['dogs', 123, 'history'];
-const [data, fetching] = ping('AppState', 'read', path);
-if (fetching) {
-  return DogHistoryView({ fetching });
-} else {
-  return DogHistoryView(data);
-}
-```
-
-In this example, if `fetching` is `true`, then an API request is being dispatched in the background. When the API request returns, it updates AppState, which will trigger the Pagelet to re-run its reader. This time, the application state has all the data the Pagelet wants, so `data` is populated and `fetching` is false.
-
-#### Configuration
-
-For the consumption of Readers to work, Readers need to be configured like this:
-
-```javascript
-ping('AppState', 'set readers', {
-  name1: readerFunction1,
-  name2: readerFunction2,
-  nameN: readerFunctionN,
-});
-
-ping('AppState', 'set readers', [
-  [pathFunction1, readerFunction1],
-  [pathFunction2, readerFunction2],
-  [pathFunctionN, readerFunctionN],
-]);
-```
-
-Here, `pathFunctionN` is a function which takes one argument, a wildcard placeholder, and returns a path of strings, numbers, and the wildcard placeholder. You can think of it as a regular expression, except for matching a path array instead of a string. The `readerFunctionN` is a function that runs when the `pathFunctionN` function matches a path array sent into `ping('AppState', 'read', pathArray)`. It takes the current application state as its only argument, and it returns a Promise for an response from the API package, plus serializing and adding the data to the correct spot in the app state.
-
-Example:
-
-```javascript
-function dogDetail(wildcard) {
-  return ['dogs', wildcard];
-}
-
-function dogList(wildcard) {
-  return ['dogs'];
-}
-
-function getDogList(state) {
-  return ping('API', 'get service', 'dog service')
-    .then(dogs => state.update('dogs', Immutable.fromJS(dogs)));
-}
-
-ping('AppState', 'set readers', [
-  [dogDetail, getDogList],
-  [dogList, getDogList],
-]);
-```
-
-### Writers
-
-Writers are also consumed by Pagelets but configured in AppState.
-
-#### Consumption
-
-Pagelets
