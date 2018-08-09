@@ -1,6 +1,6 @@
-# API Reference for App State
+# API Reference for AppState
 
-The App State package can be accessed via the `ping` API:
+The AppState package can be accessed via the `ping` API:
 
 ```javascript
 import { ping } from 'lambdagrid-mfi';
@@ -131,7 +131,7 @@ Currently, the only option we support is `window.localStorage`, but we'll be add
 
 ### Picking your storage option
 
-By default, App State uses `localStorage`. If you want to be explicit, you can set it like this:
+By default, AppState uses `localStorage`. If you want to be explicit, you can set it like this:
 
 ```javascript
 ping('AppState', 'set storage', 'localStorage');
