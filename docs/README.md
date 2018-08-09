@@ -11,7 +11,7 @@
   * [Pagelets](ecosystem/Pagelets.md)
 * [API Reference](api-reference/README.md)
   * [MFI](api-reference/MFI.md)
-  * [App State](api-reference/App-State.md)
+  * [AppState](api-reference/AppState.md)
   * [React Views](api-reference/React-Views.md)
   * [React Components](api-reference/React-Components.md)
   * [URL Routing](api-reference/URL-Routing.md)
