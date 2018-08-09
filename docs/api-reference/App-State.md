@@ -9,7 +9,7 @@ ping('AppState', method, arg1, arg2...);
 
 ## Updaters
 
-Updaters execute all changes to application state, including creates, updates, and deletes. They are synchronous and relate only to local state. Synchronizing with a remote database or remote API is done with Synchronizers.
+Updaters execute all changes to application state, including creates, updates, and deletes. They are synchronous and relate only to local state. Synchronizing with a remote database or remote API is done with Synchronizers, detailed below.
 
 Updaters are primarily consumed by Pagelets.
 
@@ -176,3 +176,88 @@ ping('AppState', 'set authorizers', {
   'is logged in': loginRequired,
 });
 ```
+
+## Synchronizers
+
+Synchronizers help to sync your UI's application state with the data in your database behind an API server. There are two types of Synchronizers:
+
+1. Readers, which take data from the API server and load it into App State
+2. Writers, which take user requests to change, update, or delete data, and propagate those changes back to the API server
+
+### Readers
+
+Readers are consumed by Pagelets, but configured in AppState.
+
+#### Consumption
+
+Pagelets ask for data from AppState like this:
+
+```javascript
+ping('AppState', 'read', pathToData);
+```
+
+Where `pathToData` is an array of strings and numbers that represents the path to traverse AppState to get your desired data. This returns an array with two items. The first is the data, if data exists at your specified path, otherwise it is `null`. The second is a boolean, either `true` if a Reader Synchronizer is fetching your data, or `false` if not.
+
+Example:
+
+```javascript
+const path = ['dogs', 123, 'history'];
+const [data, fetching] = ping('AppState', 'read', path);
+if (fetching) {
+  return DogHistoryView({ fetching });
+} else {
+  return DogHistoryView(data);
+}
+```
+
+In this example, if `fetching` is `true`, then an API request is being dispatched in the background. When the API request returns, it updates AppState, which will trigger the Pagelet to re-run its reader. This time, the application state has all the data the Pagelet wants, so `data` is populated and `fetching` is false.
+
+#### Configuration
+
+For the consumption of Readers to work, Readers need to be configured like this:
+
+```javascript
+ping('AppState', 'set readers', {
+  name1: readerFunction1,
+  name2: readerFunction2,
+  nameN: readerFunctionN,
+});
+
+ping('AppState', 'set readers', [
+  [pathFunction1, readerFunction1],
+  [pathFunction2, readerFunction2],
+  [pathFunctionN, readerFunctionN],
+]);
+```
+
+Here, `pathFunctionN` is a function which takes one argument, a wildcard placeholder, and returns a path of strings, numbers, and the wildcard placeholder. You can think of it as a regular expression, except for matching a path array instead of a string. The `readerFunctionN` is a function that runs when the `pathFunctionN` function matches a path array sent into `ping('AppState', 'read', pathArray)`. It takes the current application state as its only argument, and it returns a Promise for an response from the API package, plus serializing and adding the data to the correct spot in the app state.
+
+Example:
+
+```javascript
+function dogDetail(wildcard) {
+  return ['dogs', wildcard];
+}
+
+function dogList(wildcard) {
+  return ['dogs'];
+}
+
+function getDogList(state) {
+  return ping('API', 'get service', 'dog service')
+    .then(dogs => state.update('dogs', Immutable.fromJS(dogs)));
+}
+
+ping('AppState', 'set readers', [
+  [dogDetail, getDogList],
+  [dogList, getDogList],
+]);
+```
+
+### Writers
+
+Writers are also consumed by Pagelets but configured in AppState.
+
+#### Consumption
+
+Pagelets 
