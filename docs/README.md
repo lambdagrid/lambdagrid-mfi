@@ -4,6 +4,7 @@
 * [Introduction](introduction/README.md)
   * [Motivation](introduction/Motivation.md)
   * [Core Concepts](introduction/Core-Concepts.md)
+  * [Ecosystem](introduction/Ecosystem.md)
 * [API Reference](api-reference/README.md)
   * [MFI](api-reference/MFI.md)
   * [AppState](api-reference/AppState.md)
