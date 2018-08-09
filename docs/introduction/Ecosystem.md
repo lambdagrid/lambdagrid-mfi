@@ -10,6 +10,7 @@ The following are the packages that will be launched alongside LambdaGrid's base
 * **ReactViews**, to create markup and styles in React, like the "V" in "MVC"
 * **Pagelets**, to conjoin business data and presentation components with application logic, like the "C" in "MVC"
 * **ReactComponents**, a comprehensive suite of React components that are compatible with Bootstrap 4
+* **API**, for dispatching HTTP requests to API servers
 * **UrlRouting**, to handle URL routing and serve the correct views to the user
 * **TextManager**, a headless CMS to allow product managers to update copywriting without going through an engineer
 * **Pages**, a composer for different Pagelets and the glue between URL routing and React views
