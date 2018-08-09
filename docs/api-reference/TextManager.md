@@ -1,6 +1,6 @@
-# API Reference for Text Manager
+# API Reference for TextManager
 
-The Text Manager package can be accessed via the `ping` API:
+The TextManager package can be accessed via the `ping` API:
 
 ```javascript
 import { ping } from 'lambdagrid-mfi';

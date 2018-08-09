@@ -15,5 +15,5 @@
   * [ReactViews](api-reference/ReactViews.md)
   * [ReactComponents](api-reference/ReactComponents.md)
   * [UrlRouting](api-reference/UrlRouting.md)
-  * [Text Manager](api-reference/Text-Manager.md)
+  * [TextManager](api-reference/TextManager.md)
 * [Examples](examples/README.md)
