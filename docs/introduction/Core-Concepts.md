@@ -42,12 +42,12 @@ If you're missing a package for an important feature, or if you'd like a new way
 Each package has its own API, which reflects how each package has its own purpose. Usually, the APIs are for adding stateless JavaScript functions to the package. For instance, the app state package exposes an API for adding functions that update the app's global state:
 
 ```javascript
-import { AppState } from 'lambdagrid-mfi';
+import { ping } from 'lambdagrid-mfi';
 
-AppState.registerUpdaters(
+ping('AppState', 'set writers', {
   'add a dog': (state, newDog) => state.update('dogs', dogs => dogs.push(newDog)),
   'remove a dog': (state, name) => state.filter('dogs', dogs => dogs.filter(d => d.name != name))
-);
+});
 ```
 
 ### Managing your package code
