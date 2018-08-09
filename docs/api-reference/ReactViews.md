@@ -1,6 +1,6 @@
-# API Reference for React Views
+# API Reference for ReactViews
 
-The React Views package can be accessed via the `ping` API:
+The ReactViews package can be accessed via the `ping` API:
 
 ```javascript
 import { ping } from 'lambdagrid-mfi';
@@ -17,7 +17,7 @@ You can get a view like this:
 ping('ReactViews', 'get view', name);
 ```
 
-The `name` is the name of the React view that you want to retrieve. This will return a function that takes props and returns a React component, if the `name` corresponds to a registered React view, otherwise it returns an error.
+The `name` is the name of the React view that you want to retrieve. This will return a React component, if the `name` corresponds to a registered React view, otherwise it returns an error.
 
 Example:
 
