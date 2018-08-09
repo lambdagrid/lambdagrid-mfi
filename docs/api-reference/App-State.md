@@ -7,60 +7,64 @@ import { ping } from 'lambdagrid-mfi';
 ping('AppState', method, arg1, arg2...);
 ```
 
-## Updaters
+## Reading state from AppState with Readers
 
-Updaters execute all changes to application state, including creates, updates, and deletes. They are synchronous and relate only to local state. Synchronizing with a remote database or remote API is done with Synchronizers, detailed below.
+You can read from your application state with Readers. This also includes fetching data from an API server to populate your application state.
 
-Updaters are primarily consumed by Pagelets.
+### Consuming Readers
 
-### Get an Updater
-
-Other packages can talk to AppState and request an application state update by getting an Updater:
+Pagelets are the main consumers of Readers. You can consume a Reader like this:
 
 ```javascript
-// in another package other than AppState
-ping('AppState', 'get updater', name);
+ping('AppState', 'read', nameOfReadRequest, arg1, arg2, argN...);
 ```
 
-The `name` is the name of the updater and is required.
+Where `nameOfReadRequest` is a required string which is a query name that is configured in AppState, and `argN` is an optional additional parameter.
 
-Returns a function that can be invoked to trigger an update, if an updater for the given name is found. Otherwise, throws an error. This function can take any or no arguments, and the arguments themselves are specified by whoever created the Updater.
+### Creating Readers
 
-Example:
-
-```javascript
-const changeName = ping('AppState', 'get updater', 'change dog name');
-changeName({ id: 123, name: 'Captain Woofers' });
-```
-
-### Create Updaters
-
-By default, there are no updaters. You'll have to add updaters if you want other packages to be able to trigger updates to your application state.
+You create Readers in AppState like this:
 
 ```javascript
-ping('AppState', 'set updaters', {
-  updaterName1: updaterFunction1,
-  updaterName2: updaterFunction2,
-  updaterName3: updaterFunctionN,
+ping('AppState', 'set readers', {
+  name1: readerFunction1,
+  name2: readerFunction2,
+  nameN: readerFunctionN,
 });
 ```
 
-The `updaterNameN` is the identifing `name` in `ping('AppState', 'get updater', name)`.
-
-The `updaterFunctionN` is a function that takes `previousState` as its first argument, and any additional arguments that might be helpful. For instance, if you want an Updater to remove an item from a list, an additional argument that the Updater could require is an index or an id. The updater function must return the next state.
+Where `nameN` is the `name` of a query that consumers specify with `ping('AppState', 'read', name)`, and `readerFunctionN` is a function that takes the current app state as the first argument and returns either the updated app state, or a promise which eventually resolves to the updated app state. Additional arguments in the definition of `readerFunctionN` are optional but can be useful to make state queries more dynamic.
 
 Example:
 
 ```javascript
-function changeDogName(prevState, { id, name }) {
-  const nextState = prevState.find(dog => dog.get('id') == id).update('name', () => name);
-  return nextState;
+function getDogList(state) {
+  if (state.has('dogs')) {
+    return state.get('dogs');
+  } else {
+    return ping('API', 'get server', 'dogs server', 'get all dogs')
+      .then(dogs => state.update('dogs', () => Immutable.fromJS(dogs)));
+  }
 }
 
-ping('AppState', 'set updaters', { 'change dog name': changeDogName });
-```
+function getDogDetail(state, id) {
+  const dogWithId = dog => dog.get('id') === id;
+  const dogs = state.get('dogs');
+  const dog = dogs.find(dogWithId);
 
-Note that when you create an Updater, the Updater's first argument is always the previous state. The second argument is the first argument from the invoker, the third argument is the second argument from the invoker, etc.
+  if (dog.has('owner history') && dog.has('medical history')) {
+    return dog;
+  } else {
+    return ping('API', 'get server', 'dogs server', 'get dog', id)
+      .then(newDog => state.updateIn(['dogs', dogs.findIndex(dogWithId)], newDog));
+  }
+}
+
+ping('AppState', 'set readers', {
+  getDogList,
+  getDogDetail,
+});
+```
 
 ## Storage
 
@@ -260,4 +264,4 @@ Writers are also consumed by Pagelets but configured in AppState.
 
 #### Consumption
 
-Pagelets 
+Pagelets
