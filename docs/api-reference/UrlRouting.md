@@ -1,6 +1,6 @@
-# API Reference for URL Routing
+# API Reference for UrlRouting
 
-The URL Routing package can be accessed via the `ping` API:
+The UrlRouting package can be accessed via the `ping` API:
 
 ```javascript
 import { ping } from 'lambdagrid-mfi';
