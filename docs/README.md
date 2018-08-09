@@ -13,7 +13,7 @@
   * [MFI](api-reference/MFI.md)
   * [AppState](api-reference/AppState.md)
   * [ReactViews](api-reference/ReactViews.md)
-  * [React Components](api-reference/React-Components.md)
+  * [ReactComponents](api-reference/ReactComponents.md)
   * [URL Routing](api-reference/URL-Routing.md)
   * [Text Manager](api-reference/Text-Manager.md)
 * [Examples](examples/README.md)
