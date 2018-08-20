@@ -13,4 +13,5 @@
   * [UrlRouting](api-reference/UrlRouting.md)
   * [TextManager](api-reference/TextManager.md)
 * [Examples](examples/README.md)
+  * [Creating a new UI with LambdaGrid](examples/Creating-A-New-UI-With-LambdaGrid.md)
   * [Todo App](examples/Todo-App.md)
