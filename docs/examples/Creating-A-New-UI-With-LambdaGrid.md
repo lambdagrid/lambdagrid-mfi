@@ -58,4 +58,4 @@ Before moving on to the next level of complexity, we encourage you tinker with y
 
 ## Further reading
 
-* [Passing data into React views for dynamic React components](/examples/passing-data-into-views)
+* [Passing data into React views for dynamic React components](https://docs.lambdagrid.com/examples/passing-data-into-views)
