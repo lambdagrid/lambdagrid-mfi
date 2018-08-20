@@ -78,3 +78,43 @@ ping('AppState', 'create writers', {
   ),
 });
 ```
+
+## Hardest: Sync with remote database via API request
+
+Most of us need to sync our UI's application state with an API server so our databases can be updated too.
+
+First, we'll extend the writer to dispatch an API request to log in the user. Second, we'll configure the API request. Third and finally, we'll handle the response body from the API.
+
+```javascript
+// First, extend the writer to dispatch a request
+
+function login(state) {
+  const email = state.getIn(['forms', 'login', 'email']);
+  const password = state.getIn(['forms', 'login', 'password']);
+  return ping('API', 'request', login, { email, password })
+    .then(() => ping('AppState', 'write', 'user info', { email, password }));
+}
+
+ping('AppState', 'create writers', {
+  login,
+});
+
+// Second, configure an API request
+
+function loginRequest({ email, password }) {
+  const url = 'https://api.your-domain.com/auth';
+  return ping('API', 'send http request', 'POST', url, { email, password });
+}
+
+ping('API', 'create requests', {
+  login: loginRequest,
+});
+
+// Third, handle the response
+
+ping('AppState', 'create writers', {
+  'user info': state => state.update('user', user => user
+    .set( 'email', state.getIn(['forms', 'login', 'email']) )
+    .set( 'password', state.getIn(['forms', 'login', 'password']) )
+});
+```
