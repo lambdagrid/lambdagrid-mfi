@@ -109,3 +109,26 @@ ping('AppState', 'create writers', {
   name: (state, newName) => state.set('name', newName),
 });
 ```
+
+## Extra mile: show loading states in React views
+
+Sometimes you want to show your users that the UI is waiting for an API request to complete in order to render the complete view. Some reasons for this could be either making a slow API request seem less slow, creating a more seamless user experience, and avoiding users from believing the UI is broken when it's actually just waiting for some data from the API.
+
+We can show the user that the UI is waiting for the API by first updating the React view to accept props that indicate an important API request is underway, and then updating the Pagelet to create this prop.
+
+```javascript
+// First, let's update the React view
+
+ping('ReactViews', 'create views', {
+  NameTag: props => <div>{props.loading ? "loading..." : `hi, my name is ${props.name}`}</div>,
+});
+
+// Second, let's update the pagelet to include a `loading` prop
+const NameTag = ping('Pagelets', 'init pagelet', {
+  view: ping('ReactViews', 'get view', 'NameTag'),
+  props: () => ({
+    name: ping('AppState', 'read', 'name'),
+    loading: ping('AppState', 'is loading', 'get name'),
+  }),
+});
+```
