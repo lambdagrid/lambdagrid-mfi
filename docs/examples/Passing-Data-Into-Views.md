@@ -53,7 +53,7 @@ First, we'll have to create an application state `reader` to read the `name` att
 // First, create the reader to extract data from AppState
 
 ping('AppState', 'create readers', {
-  'name': state => state.get('name'),
+  name: state => state.get('name'),
 });
 
 // Then, have the pagelet use this reader
@@ -61,7 +61,7 @@ ping('AppState', 'create readers', {
 const NameTag = ping('Pagelets', 'init pagelet', {
   view: ping('ReactViews', 'get view', 'NameTag'),
   props: () => ({
-    name: () => ping('AppState', 'read', 'name'),
+    name: ping('AppState', 'read', 'name'),
   }),
 });
 ```
@@ -69,3 +69,43 @@ const NameTag = ping('Pagelets', 'init pagelet', {
 Now, any time the `name` changes in `AppState`, the `NameTag` React view will render the new name.
 
 ## Hardest: getting dynamic data via API request into a React view
+
+Furthermore, most real-world UIs need to sync their data with a remote database via an API server.
+
+First, we'll extend the reader to dispatch an API request if the name isn't present. Second, we'll configure the API request to receive the name from the server. Third and finally, we'll create an AppState `writer` which will update the application state with the name that comes from the server.
+
+```javascript
+// First, extend the reader
+
+function name(state) {
+  if (state.get('name')) {
+    return state.get('name');
+  } else {
+    const defaultName = '';
+
+    ping('API', 'request', 'get name')
+      .then(data => ping('AppState', 'write', 'name', data.name));
+
+    return defaultName;
+  }
+}
+
+ping('AppState', 'create readers', { name });
+
+// Second, configure the API request
+
+function getName() {
+  const url = 'https://api.your-domain.com/name';
+  return ping('API', 'send http request', 'GET', url);
+}
+
+ping('API', 'create requests', {
+  'get name': getName,
+});
+
+// Third, create the writer to update application state with the name
+
+ping('AppState', 'create writers', {
+  name: (state, newName) => state.set('name', newName),
+});
+```
