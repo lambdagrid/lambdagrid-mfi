@@ -16,4 +16,5 @@
   * [Creating a new UI with LambdaGrid](examples/Creating-A-New-UI-With-LambdaGrid.md)
   * [Passing data into views](examples/Passing-Data-Into-Views.md)
   * [Updating data](examples/Updating-Data.md)
+  * [Debounce user events](examples/Debounce-User-Events.md)
   * [Todo App](examples/Todo-App.md)
