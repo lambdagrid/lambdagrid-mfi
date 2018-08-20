@@ -55,3 +55,7 @@ Before moving on to the next level of complexity, we encourage you tinker with y
 2. Change the UrlRouting URL path. We set it to be the homepage with a regular expression. Try changing it to `^/new-route$` instead, and then you can see your React view is now rendering on the `/new-route` instead.
 3. Try removing the `finish()` invocation at the end of `src/index.js`. Your UI should now not be running at all!
 4. Try to misspell the first or second arguments in the `ping` invocations. You should be getting some console errors to warn  you of the typos.
+
+## Further reading
+
+* [Passing data into React views for dynamic React components](examples/Passing-Data-Into-Views.md)
