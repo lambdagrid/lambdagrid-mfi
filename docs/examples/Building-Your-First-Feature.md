@@ -53,7 +53,7 @@ ping('ReactViews', 'create views', {
 });
 ```
 
-We won't be able to see the change live on `localhost:8080` again until we finish all the steps till step 1.6, so keep going!
+We won't be able to see the change live on `localhost:8080` again until we finish the next step, so keep going!
 
 ### Step 1.3: Provide the data through a pagelet
 
@@ -70,11 +70,11 @@ const NameTag = ping('Pagelets', 'init pagelet', {
 ping('Pagelets', 'create pagelets', { NameTag });
 ```
 
-We still have some steps to go before seeing our changes live on `localhost:8080`, so keep going!
+We removed the hardcoding from the React view and put it into the pagelet. Check out your React view, decoupled from the data, at work on `localhost:8080`!
 
 ### Step 1.4: Request data from AppState
 
-We removed the hardcoding from the React view and put it into the pagelet. Now let's remove it from the pagelet too and move it further upstream, to AppState.
+Now let's remove the hardcoding from the pagelet too and move it further upstream, to AppState.
 
 Change the pagelet's `props` function like so:
 
