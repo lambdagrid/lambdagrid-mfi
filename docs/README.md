@@ -7,7 +7,7 @@
   * [Ecosystem](introduction/Ecosystem.md)
 * [Examples](examples/README.md)
   * [Creating a new UI with LambdaGrid](examples/Creating-A-New-UI-With-LambdaGrid.md)
-  * [Building your first feature with LambdaGrid](Building-Your-First-Feature.md)
+  * [Building your first feature with LambdaGrid](examples/Building-Your-First-Feature.md)
   * [Passing data into views](examples/Passing-Data-Into-Views.md)
   * [Updating data](examples/Updating-Data.md)
   * [Debounce user events](examples/Debounce-User-Events.md)
