@@ -162,7 +162,7 @@ const loginRequired = ping('AppState', 'get authorizer', 'is logged in');
 You can create Authorizers like this:
 
 ```javascript
-ping('AppState', 'set authorizers', {
+ping('AppState', 'create authorizers', {
   authorizerName1: authorizerFunction1,
   authorizerName2: authorizerFunction2,
   authorizerNameN: authorizerFunctionN,
@@ -184,7 +184,7 @@ function loginRequired(state) {
   return state.getIn(['user', 'is logged in']) === true;
 }
 
-ping('AppState', 'set authorizers', {
+ping('AppState', 'create authorizers', {
   'anyone': letEveryoneIn,
   'is logged in': loginRequired,
 });

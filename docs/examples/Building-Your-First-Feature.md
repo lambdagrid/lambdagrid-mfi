@@ -214,6 +214,39 @@ You can create the requests however you like, as long as you follow the conventi
 
 > See API reference for API's `add requests` [here](https://docs.lambdagrid.com/api-reference/api#add-requests) and `send http request` [here](https://docs.lambdagrid.com/api-reference/api#send-http-request).
 
+### Step 3.3: Configure the writer
+
+We need to take the data from the API server and add it to our own local application state by using an AppState writer.
+
+Recall this example a few steps previously:
+
+```javascript
+ping('AppState', 'create readers', {
+  name: state => {
+    const name = state.get('name');
+
+    if (!name) {
+      ping('API', 'request', 'name')
+        // Let's look at this line in particular:
+        .then(response => ping('AppState', 'write', 'name', response.name));
+    }
+
+    const defaultName = '';
+    return name || defaultName;
+  }
+});
+```
+
+We need to actually configure this writer if we want to use it.
+
+```javascript
+ping('AppState', 'create writers', {
+  name: (state, newName) => state.set('name', newName),
+});
+```
+
+> See API reference for `create writers` [here](https://docs.lambdagrid.com/api-reference/appstate#create-writers) and for `writers` [here](https://docs.lambdagrid.com/api-reference/appstate#write).
+
 ## Step 4: Writing data without API requests
 
 ## Step 5: Writing data with API requests
