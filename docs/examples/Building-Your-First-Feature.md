@@ -137,6 +137,8 @@ ping('AppState', 'create readers', {
 
 Note that the implementation details of your reader will depend on the shape of your application state.
 
+> See API reference for `create readers` [here](https://docs.lambdagrid.com/api-reference/appstate#create-readers).
+
 Note also that the key of the reader is `name`, to match the reader identifier used in the pagelet's `props` function.
 
 Just one more step until we can see our changes live on `localhost:8080`!
