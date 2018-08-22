@@ -247,6 +247,8 @@ ping('AppState', 'create writers', {
 
 > See API reference for `create writers` [here](https://docs.lambdagrid.com/api-reference/appstate#create-writers) and for `writers` [here](https://docs.lambdagrid.com/api-reference/appstate#write).
 
+At this point, we should be able to see data from the API loading up on `localhost:8080`.
+
 ## Step 4: Writing data without API requests
 
 ## Step 5: Writing data with API requests
