@@ -47,13 +47,13 @@ Almost done with our Hello World app. Finally, create a `src/index.html` file an
 </html>
 ```
 
-Check your browser, and you should now see "hello world" rendering inside of your new LambdaGrid application!
+Then run `npm start` in the root directory of your repository.
+
+Check your browser, and you should now see "hello world" rendering inside of your new LambdaGrid application at `localhost:8080`!
 
 ### Tinkering with Hello World
 
 Before moving on to the next level of complexity, we encourage you tinker with your existing app. Try some of these different options:
 
 1. Change the React code inside the `HelloWorld` React component. You can add links, change the text, etc.
-2. Change the UrlRouting URL path. We set it to be the homepage with a regular expression. Try changing it to `^/new-route$` instead, and then you can see your React view is now rendering on the `/new-route` instead.
-3. Try removing the `finish()` invocation at the end of `src/index.js`. Your UI should now not be running at all!
-4. Try to misspell the first or second arguments in the `ping` invocations. You should be getting some console errors to warn  you of the typos.
+2. Try removing the `finish()` invocation at the end of `src/index.js`. Your UI should now not be running at all!

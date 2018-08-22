@@ -37,9 +37,17 @@ ping('ReactViews', 'create views', {
 });
 ```
 
+Don't forget to update the UrlRouting package to render this view:
+
+```javascript
+ping('UrlRouting', 'create routes', {
+  '^/$': ping('ReactViews', 'get view', 'NameTag'),
+})
+```
+
 When you run `npm start` in the root directory of your repository, you should be able to see your read-only React view on `localhost:8080`.
 
-> We used the `get view` method with the ReactViews package. Learn more about it [here](https://docs.lambdagrid.com/api-reference/reactviews#get-view).
+> See the API reference for ReactViews's `get view`  [here](https://docs.lambdagrid.com/api-reference/reactviews#get-view) and for UrlRouting's `create routes` [here](https://docs.lambdagrid.com/api-reference/urlrouting#create-routes).
 
 ### Step 1.2: Change the React view to use `props` instead of hardcoding
 
