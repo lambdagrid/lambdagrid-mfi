@@ -42,7 +42,7 @@ Don't forget to update the UrlRouting package to render this view:
 ```javascript
 ping('UrlRouting', 'create routes', {
   '^/$': ping('ReactViews', 'get view', 'NameTag'),
-})
+});
 ```
 
 When you run `npm start` in the root directory of your repository, you should be able to see your read-only React view on `localhost:8080`.
