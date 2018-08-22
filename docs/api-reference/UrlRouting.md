@@ -7,7 +7,9 @@ import { ping } from 'lambdagrid-mfi';
 ping('UrlRouting', method, arg1, arg2...);
 ```
 
-## Setting Routes
+## Methods
+
+### `create routes`
 
 You can set routes like this:
 
@@ -31,7 +33,7 @@ ping('UrlRouting', 'set routes', {
 });
 ```
 
-## Setting the 404 page
+### `set 404`
 
 You can set the 404 page like this:
 
@@ -48,7 +50,7 @@ const pageNotFound = ping('ReactViews', 'get view', 'FailWhail');
 ping('UrlRouting', 'set 404', pageNotFound);
 ```
 
-## Setting automatic 301 redirects
+### `set redirects`
 
 You can set automatic 301 redirects like this:
 

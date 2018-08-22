@@ -29,6 +29,8 @@ ping('UrlRouting', 'create routes', {
 finish();
 ```
 
+> We used the `create views` method for the ReactViews package, for which you can see the API reference [here](https://docs.lambdagrid.com/api-reference/reactviews#create-views). We also used the `create routes` method for UrlRouting, for which you can see the API reference [here](https://docs.lambdagrid.com/api-reference/urlrouting#create-routes).
+
 Almost done with our Hello World app. Finally, create a `src/index.html` file and paste the following:
 
 ```html
