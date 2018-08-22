@@ -18,4 +18,5 @@
   * [ReactViews](api-reference/ReactViews.md)
   * [Pagelets](api-reference/Pagelets.md)
   * [UrlRouting](api-reference/UrlRouting.md)
+  * [API](api-reference/API.md)
   * [TextManager](api-reference/TextManager.md)
