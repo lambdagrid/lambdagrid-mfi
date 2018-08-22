@@ -76,7 +76,7 @@ ping('Pagelets', 'create pagelets', { NameTag });
 
 We removed the hardcoding from the React view and put it into the pagelet. Check out your React view, decoupled from the data, at work on `localhost:8080`!
 
-> See the API references for `init pagelet` [here]() and for `create pagelet` [here]().
+> See the API references for `init pagelet` [here](https://docs.lambdagrid.com/api-reference/pagelets#init-pagelet) and for `create pagelet` [here](https://docs.lambdagrid.com/api-reference/pagelets#create-pagelets).
 
 ### Step 1.4: Request data from AppState
 
