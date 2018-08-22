@@ -1,4 +1,4 @@
-# API Reference for ReactViews
+# API Reference for ReactViews package
 
 The ReactViews package can be accessed via the `ping` API:
 
@@ -7,9 +7,9 @@ import { ping } from 'lambdagrid-mfi';
 ping('ReactViews', method, arg1, arg2...);
 ```
 
-## Getting and setting React views
+## Methods
 
-### Get views
+### `get view`
 
 You can get a view like this:
 
@@ -25,9 +25,13 @@ Example:
 const NameTag = ping('ReactViews', 'get view', 'NameTag');
 ```
 
-### Set views
+Common use cases:
+* From the Pagelets package, to specify a pagelet's view
+* From the UrlRouting package, to specify a route's view
 
-You can register a view like this:
+### `create views`
+
+You can register views like this:
 
 ```javascript
 ping('ReactViews', 'set views', {

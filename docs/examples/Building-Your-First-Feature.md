@@ -39,6 +39,8 @@ ping('ReactViews', 'create views', {
 
 When you run `npm start` in the root directory of your repository, you should be able to see your read-only React view on `localhost:8080`.
 
+> We used the `get view` method with the ReactViews package. Learn more about it [here](https://docs.lambdagrid.com/api-reference/reactviews).
+
 ### Step 1.2: Change the React view to use `props` instead of hardcoding
 
 The next step is to remove the hard-coding from the React view. Replace them all with `props`.
