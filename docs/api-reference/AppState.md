@@ -189,3 +189,37 @@ ping('AppState', 'create authorizers', {
   'is logged in': loginRequired,
 });
 ```
+
+### `is fetching`
+
+Returns a boolean to indicate whether an API request is underway.
+
+```javascript
+ping('AppState', 'is fetching', anyOrAll, request1, request2, requestN...);
+```
+
+`anyOrAll` is an enum with value either "any" or "all".
+
+`requestN` is a name of a request that's in progress. These are the names specified by the `name` in `ping('API', 'request', name)`.
+
+If `anyOrAll` is `"any"`, then this returns `true` if at least one of `requestN` is underway, otherwise `false`. Else, if `anyOrAll` is `"all"`, then this returns `true` if all of `requestN` is underway, otherwise `false`.
+
+Example:
+
+```javascript
+const fetchingFirstItem = ping(
+  'AppState',
+  'is fetching',
+  'any',
+  'eating',
+  'drinking water'
+);
+
+const fetchingAllItems = ping(
+  'AppState',
+  'is fetching',
+  'all',
+  'eating',
+  'drinking water'
+);
+```

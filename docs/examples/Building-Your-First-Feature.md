@@ -249,6 +249,60 @@ ping('AppState', 'create writers', {
 
 At this point, we should be able to see data from the API loading up on `localhost:8080`.
 
+### Step 3.4: Add loading state
+
+You might see a flicker from your browser that occurs as your UI receives the response from the API request and updates your local state.
+
+If you want to prevent the flicker and create a better user experience, you can create a loading state in your React view.
+
+In the example above, you could change the React view to take a `fetching` prop:
+
+```javascript
+ping('ReactViews', 'create views', {
+  NameTag: props => {
+    if (props.fetching) {
+      return <div>loading...</div>;
+    } else {
+      return <div>hi, my name is {props.name}</div>;
+    }
+  },
+});
+```
+
+And you could change the pagelet to hardcode the `fetching` prop:
+
+```javascript
+const NameTag = ping('Pagelets', 'init pagelet', {
+  view: ping('ReactViews', 'get view', 'NameTag'),
+  props: () => ({
+    // This line is new:
+    fetching: true,
+    name: ping('AppState', 'read', 'name'),
+  }),
+});
+```
+
+You should see your browser on `localhost:8080` persisting your loading state.
+
+### Step 3.5: Modify loading state
+
+In the last step, we returned to hardcoding as a tactic to kick off the development of a new state, the loading state. Now we need to remove the hardcoding and make it dynamic.
+
+Change your `fetching` prop to check for fetchers instead. This is how it will look in our example:
+
+```javascript
+const NameTag = ping('Pagelets', 'init pagelet', {
+  view: ping('ReactViews', 'get view', 'NameTag'),
+  props: () => ({
+    // This line is new:
+    fetching: ping('AppState', 'is fetching', 'any', 'name'),
+    name: ping('AppState', 'read', 'name'),
+  }),
+});
+```
+
+> See API reference for `is fetching` [here](https://docs.lambdagrid.com/api-reference/appstate#is-fetching).
+
 ## Step 4: Writing data without API requests
 
 ## Step 5: Writing data with API requests
