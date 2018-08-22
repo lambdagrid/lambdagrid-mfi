@@ -16,6 +16,6 @@
   * [MFI](api-reference/MFI.md)
   * [AppState](api-reference/AppState.md)
   * [ReactViews](api-reference/ReactViews.md)
-  * [ReactComponents](api-reference/ReactComponents.md)
+  * [Pagelets](api-reference/Pagelets.md)
   * [UrlRouting](api-reference/UrlRouting.md)
   * [TextManager](api-reference/TextManager.md)

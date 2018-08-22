@@ -57,6 +57,8 @@ ping('ReactViews', 'create views', {
 
 We won't be able to see the change live on `localhost:8080` again until we finish the next step, so keep going!
 
+> See the API reference for ReactViews's `create views` [here](https://docs.lambdagrid.com/api-reference/reactviews#create-views).
+
 ### Step 1.3: Provide the data through a pagelet
 
 You can supply data and logic to React views by wrapping them in pagelets. Create a pagelet like this:
@@ -73,6 +75,8 @@ ping('Pagelets', 'create pagelets', { NameTag });
 ```
 
 We removed the hardcoding from the React view and put it into the pagelet. Check out your React view, decoupled from the data, at work on `localhost:8080`!
+
+> See the API references for `init pagelet` [here]() and for `create pagelet` [here]().
 
 ### Step 1.4: Request data from AppState
 
