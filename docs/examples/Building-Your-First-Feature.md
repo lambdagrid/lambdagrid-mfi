@@ -197,6 +197,23 @@ In this example, the reader dispatches an API request if the name isn't present 
 
 > See API references for the API package's `request` [here](https://docs.lambdagrid.com/api-reference/api#request).
 
+### Step 3.2: Configure the API request
+
+We need to create the API request that is called in the reader.
+
+```javascript
+ping('API', 'add requests', {
+  name: () => {
+    const url = 'http://localhost:3000/name';
+    return ping('API', 'send http request', 'GET', url);
+  },
+});
+```
+
+You can create the requests however you like, as long as you follow the convention of returning a Promise. One way to do so is to use API's `send http request` method.
+
+> See API reference for API's `add requests` [here](https://docs.lambdagrid.com/api-reference/api#add-requests) and `send http request` [here](https://docs.lambdagrid.com/api-reference/api#send-http-request).
+
 ## Step 4: Writing data without API requests
 
 ## Step 5: Writing data with API requests
