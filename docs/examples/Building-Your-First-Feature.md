@@ -155,7 +155,15 @@ ping('AppState', 'set initial state', {
 
 At this stage, you should finally be able to see your changes showing up on `localhost:8080`!
 
+> See API reference for `set initial state` [here](https://docs.lambdagrid.com/api-reference/appstate#set-initial-state).
+
 ## Step 2: Read-only feature extended for edge cases
+
+We want our feature to handle all the different states, or all the different edge cases, that our user could experience.
+
+We recommend first listing all the edge cases, then for each edge case, repeat the steps above.
+
+So, for our NameTag example, let's say we might want to add their age, if we know their age. We'd start with hardcoding the age in the React view, then making the React view dynamic by hardcoding the age in the pagelet, then making the pagelet dynamic by hardcoding the age in AppState's initial state.
 
 ## Step 3: Read-only feature with data fetched from an API
 
