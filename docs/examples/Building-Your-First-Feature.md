@@ -167,6 +167,36 @@ So, for our NameTag example, let's say we might want to add their age, if we kno
 
 ## Step 3: Read-only feature with data fetched from an API
 
+We're still hardcoding data in AppState's initial state. Let's remove that hardcoding too and fetch our initial state from an API server.
+
+### Step 3.1: Extend readers to know when they need data
+
+It's the job of the readers in AppState to know whether or not to get data from an API. You can program a reader to trigger an API request if the requested data isn't present locally:
+
+```javascript
+ping('AppState', 'create readers', {
+  // Previous:
+  // name: state => state.get('name'),
+
+  // Next:
+  name: state => {
+    const name = state.get('name');
+
+    if (!name) {
+      ping('API', 'request', 'name')
+        .then(response => ping('AppState', 'write', 'name', response.name));
+    }
+
+    const defaultName = '';
+    return name || defaultName;
+  }
+});
+```
+
+In this example, the reader dispatches an API request if the name isn't present locally. After the request finishes, it then triggers a writer to update the name. Note that we haven't yet written the code for this writer!
+
+> See API references for the API package's `request` [here](https://docs.lambdagrid.com/api-reference/api#request).
+
 ## Step 4: Writing data without API requests
 
 ## Step 5: Writing data with API requests
