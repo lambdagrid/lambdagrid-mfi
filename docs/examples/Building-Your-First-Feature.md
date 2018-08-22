@@ -82,6 +82,18 @@ const NameTag = ping('Pagelets', 'init pagelet', {
 ping('Pagelets', 'create pagelets', { NameTag });
 ```
 
+Now we just need to update the UrlRouting configuration to point to the pagelet instead of the React view:
+
+```javascript
+ping('UrlRouting', 'create routes', {
+  // Previous:
+  // '^/$': ping('ReactViews', 'get view', 'NameTag'),
+
+  // Next:
+  '^/$': ping('Pagelets', 'get pagelet', 'NameTag'),
+});
+```
+
 We removed the hardcoding from the React view and put it into the pagelet. Check out your React view, decoupled from the data, at work on `localhost:8080`!
 
 > See the API references for `init pagelet` [here](https://docs.lambdagrid.com/api-reference/pagelets#init-pagelet) and for `create pagelet` [here](https://docs.lambdagrid.com/api-reference/pagelets#create-pagelets).
