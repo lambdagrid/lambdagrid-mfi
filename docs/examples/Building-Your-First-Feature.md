@@ -119,6 +119,8 @@ const NameTag = ping('Pagelets', 'init pagelet', {
 
 We're telling the AppState package to read something for us, with the reader identifier `name`.
 
+> See API reference for AppState's `read` [here](https://docs.lambdagrid.com/api-reference/appstate#read).
+
 We won't be able to see our changes live on `localhost:8080` until after step 1.6, so keep going!
 
 ### Step 1.5: Provide the data from AppState

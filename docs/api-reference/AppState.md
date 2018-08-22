@@ -7,11 +7,9 @@ import { ping } from 'lambdagrid-mfi';
 ping('AppState', method, arg1, arg2...);
 ```
 
-## Reading state from AppState with Readers
+## Methods
 
-You can read from your application state with Readers. This also includes fetching data from an API server to populate your application state.
-
-### Consuming Readers
+### `read`
 
 Pagelets are the main consumers of Readers. You can consume a Reader like this:
 
@@ -28,12 +26,12 @@ const id = 123;
 ping('AppState', 'read', 'getDogDetail', id);
 ```
 
-### Creating Readers
+### `create readers`
 
 You create Readers in AppState like this:
 
 ```javascript
-ping('AppState', 'set readers', {
+ping('AppState', 'create readers', {
   name1: readerFunction1,
   name2: readerFunction2,
   nameN: readerFunctionN,
@@ -67,17 +65,13 @@ function getDogDetail(state, id) {
   }
 }
 
-ping('AppState', 'set readers', {
+ping('AppState', 'create readers', {
   getDogList,
   getDogDetail,
 });
 ```
 
-## Writing state to AppState with Writers
-
-Along with Readers, you can write state to both your application state and to API servers with Writers.
-
-### Consuming Writers
+### `write`
 
 Pagelets are the main consumers of Writers. You can consume a Writer like this:
 
@@ -94,12 +88,12 @@ const id = 123;
 ping('AppState', 'write', 'update dog name', id, 'Captain Woofers');
 ```
 
-### Creating Writers
+### `create writers`
 
 You can create Writers like this:
 
 ```javascript
-ping('AppState', 'set writers', {
+ping('AppState', 'create writers', {
   name1: writerFunction1,
   name2: writerFunction2,
   nameN: writerFunctionN,
@@ -118,50 +112,12 @@ function updateDogName(state, id, name) {
     .then(newDog => state.updateIn(['dogs', dogs.findIndex(dogWithId)], newDog));
 }
 
-ping('AppState', 'set writers', {
+ping('AppState', 'create writers', {
   'update dog name': updateDogName,
 });
 ```
 
-## Storage
-
-You can specify a storage option to persist data between tabs and sessions. This helps particularly for keeping users logged in while between sessions.
-
-Currently, the only option we support is `window.localStorage`, but we'll be adding other options soon.
-
-### Picking your storage option
-
-By default, AppState uses `localStorage`. If you want to be explicit, you can set it like this:
-
-```javascript
-ping('AppState', 'set storage', 'localStorage');
-```
-
-### Picking data to persist between sessions
-
-You can specify paths in your application state to persist to your storage selection like this:
-
-```javascript
-ping('AppState', 'set persisted paths', [
-  path1,
-  path2,
-  pathN,
-]);
-```
-
-Where `pathN` is an array of strings or numbers, which indicate the path to traverse your application state to select parts of your state to persist.
-
-Example:
-
-```javascript
-ping('AppState', 'set persisted paths', [
-  ['user', 'auth'],
-  ['tabs', 'currently selected'],
-  ['timezone'],
-]);
-```
-
-## Initial state
+### `set initial state`
 
 You can specify an initial state for each session:
 
@@ -184,11 +140,7 @@ ping('AppState', 'set initial state', Immutable.fromJS({
 }));
 ```
 
-## Authorizers
-
-Authorizers are predicates that take in app state as its sole argument, and then return a boolean to dictate whether or not the app state is sufficient to authorize a user. They're primarily consumed by Pagelets.
-
-### Get an Authorizer
+### `get authorizer`
 
 You can get an Authorizer like this:
 
@@ -205,7 +157,7 @@ const fullyPublic = ping('AppState', 'get authorizer', 'anyone');
 const loginRequired = ping('AppState', 'get authorizer', 'is logged in');
 ```
 
-### Create Authorizers
+### `create authorizers`
 
 You can create Authorizers like this:
 
