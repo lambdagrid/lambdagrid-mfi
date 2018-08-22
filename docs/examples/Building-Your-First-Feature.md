@@ -112,7 +112,7 @@ const NameTag = ping('Pagelets', 'init pagelet', {
     // name: 'still alyssa',
 
     // Next:
-    name: ping('AppState', 'read', 'name');
+    name: ping('AppState', 'read', 'name'),
   }),
 });
 ```
@@ -123,13 +123,13 @@ We won't be able to see our changes live on `localhost:8080` until after step 1.
 
 ### Step 1.5: Provide the data from AppState
 
-We can configure AppState to provide this data. If the shape of your application state is complicated, we recommend using an Immutable.JS object to represent your state. In this simplified example, we'll use a plain JavaScript object.
+We can configure AppState to provide this data. If the shape of your application state is complicated, we recommend using an Immutable.JS object to represent your state. In the future, we'll support plain JavaScript objects too.
 
 To provide the data from AppState, we need to create a reader, which is a gateway for other packages to request to read application state.
 
 ```javascript
 ping('AppState', 'create readers', {
-  name: state => state.name;
+  name: state => state.get('name'),
 });
 ```
 
