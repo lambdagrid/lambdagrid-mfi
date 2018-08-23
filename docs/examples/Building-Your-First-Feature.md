@@ -303,6 +303,8 @@ const NameTag = ping('Pagelets', 'init pagelet', {
 
 > See API reference for `is fetching` [here](https://docs.lambdagrid.com/api-reference/appstate#is-fetching).
 
+You should how see your loading state in your browser on `localhost:8080`!
+
 ## Step 4: Writing data without API requests
 
 ## Step 5: Writing data with API requests
