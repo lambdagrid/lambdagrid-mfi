@@ -352,3 +352,10 @@ setInterval(updateLoginTime, 1000);
 ```
 
 ## Step 5: Writing data with API requests
+
+There are two options for writing data with API requests:
+
+1. Dispatch your API request to update your database first, then update your local state
+2. Update your local state first, then dispatch the API request to update your database
+
+Most business requirements call for the former rather than the latter. The former does a better job of helping the user feel assured that the user's changes were saved. The latter does a better job of helping the user move quickly with optimistic updates in the frontend.
