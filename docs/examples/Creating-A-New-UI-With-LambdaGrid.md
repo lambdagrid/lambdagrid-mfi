@@ -57,3 +57,41 @@ Before moving on to the next level of complexity, we encourage you tinker with y
 
 1. Change the React code inside the `HelloWorld` React component. You can add links, change the text, etc.
 2. Try removing the `finish()` invocation at the end of `src/index.js`. Your UI should now not be running at all!
+
+## Directory structure
+
+If your UI will be non-trivial, we recommend against putting all your UI configurations inside `src/index.js` and instead splitting them into multiple files.
+
+Although technically a directory structure can be anything as long as `src/index.js` requires the files and the files themselves live in `src`, the canonical way to organize your files is like this:
+
+```
+src
+├── API
+│   └── index.js
+├── AppState
+│   └── index.js
+├── Pagelets
+│   └── index.js
+├── ReactViews
+│   └── index.js
+├── index.html
+└── index.js
+```
+
+Both `index.js` and `index.html` are one level inside of `src`. `index.js` ends up requiring the rest of the files like this:
+
+```javascript
+// src/index.js
+
+import { finish } from 'lambdagrid-mfi';
+import './ReactViews';
+import './API';
+import './AppState';
+import './Pagelets';
+
+finish();
+```
+
+In each of the subdirectories, the files create the resources for their respective packages. For instance, the AppState directory's `index.js` creates the readers and writers, the API directory's `index.js` creates the requests, the ReactViews directory's `index.js` creates the React views, and the Pagelets directory's `index.js` creates the pagelets.
+
+Within these separate directories, you could further split your code however you'd like. For instance, you could create your AppState writers in a separate file and import it in `src/AppState/index.js`.
