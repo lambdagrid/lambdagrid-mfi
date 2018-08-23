@@ -307,4 +307,48 @@ You should how see your loading state in your browser on `localhost:8080`!
 
 ## Step 4: Writing data without API requests
 
+Writing data without API requests can be thought of more simply as writing local state. There are a numerous ways to write state, including:
+
+- In an event handler to respond to a user event
+- In an event listener to listen to events emitted with an `emit` invocation
+- In a `setInterval` function
+
+> See API reference for `emit` [here](https://docs.lambdagrid.com/api-reference/mfi#emit).
+
+In any of these methods, you'll have to invoke a writer.
+
+### Writers inside of user event handlers
+
+You'll have to invoke a writer inside an event handler inside of `props` in the pagelet. Example:
+
+```javascript
+ping('Pagelets', 'init pagelet', {
+  props: ({
+    onStatusCheckboxChange: () => ping('AppState', 'write', 'toggle status'),
+  }),
+});
+```
+
+### In an event listener
+
+You'll have to invoke a writer inside the event listener that's registered with `on`. Example:
+
+```javascript
+on('form-cancel', () => ping('AppState', 'write', 'cancel form'));
+```
+
+> See API reference for `on` [here](https://docs.lambdagrid.com/api-reference/mfi#on).
+
+### In a `setInterval` function
+
+Example:
+
+```javascript
+function updateLoginTime() {
+  ping('AppState', 'write', 'time since login', Date.now());
+}
+
+setInterval(updateLoginTime, 1000);
+```
+
 ## Step 5: Writing data with API requests

@@ -1,15 +1,15 @@
 # API Reference for MFI
 
-## Ping other packages
+## Methods
 
-MFI exposes one primary function: `ping`.
+### `ping`
+
+MFI's primary function is `ping`. It's the primary way for packages to talk to one another.
 
 ```javascript
 import { ping } from 'lambdagrid-mfi';
 ping(packageName, methodName, arg1, arg2, argN...);
 ```
-
-`ping` is the way for packages to talk to one another.
 
 `packageName` is the name of the package and is required.
 
@@ -25,32 +25,24 @@ const reactViewExample = ping('ReactViews', 'get view', 'ExampleView');
 const updateName = ping('AppState', 'get updater', 'update name');
 ```
 
-## Configuration
+### `emit`
 
-This is an example configuration:
+MFI's method for publishing events to the event bus, which is powered by [Eev](https://github.com/chrisdavies/eev).
 
-```json
-{
-  "version": "0.0.1",
-  "packages": {
-    "AppState": {
-      "packageTemplate": "URL for the AppState package's base template",
-      "userConfigs": "URL for the simple JS which configures the package"
-    },
-    "ReactViews": {
-      "packageTemplate": "URL for the AppState package's base template",
-      "userConfigs": "URL for the simple JS which configures the package"
-    },
-    "Pagelets": {
-      "packageTemplate": "URL for the AppState package's base template",
-      "userConfigs": "URL for the simple JS which configures the package"
-    }
-  }
-}
+Example:
+
+```javascript
+import { emit } from 'lambdagrid-mfi';
+emit('dogs-arrived', ['Momo', 'Dexter', 'Clementine']);
 ```
 
-The `version` is the version of MFI to run.
+### `on`
 
-The `packages` is a mapping of package names, as they would be defined in the rest of your package config files, to package configs.
+MFI's method for subscribing to events on the event bus, which is powered by [Eev](https://github.com/chrisdavies/eev).
 
-The `packages[packageName].packageTemplate` is a URL representing the location of the package's template. A package template is all the package's infrastructure and boilerplate. Package templates often are, but are not required to be, coupled with a `packages[packageName].userConfigs` URL representing the location of the package's user configurations expressed as small amounts of JavaScript.
+Example:
+
+```javascript
+import { on } from 'lambdagrid-mfi';
+on('dogs-arrived', dogs => dogs.forEach(d => pet(d)));
+```
